@@ -22,9 +22,9 @@ func Next(msg *[32]byte) bool {
 	return false
 }
 
-func MsgSaltLeadingZeroCount(msg, salt [32]byte) int {
-	xor.Copy32(&salt, &msg)
-	return LeadingZeroCount(highwayhash.Zero.Sum(append(msg[:], salt[:]...)))
+func MsgSaltLeadingZeroCount(msg [32]byte, salt []byte) int {
+	xor.Copy(salt, msg[:])
+	return LeadingZeroCount(highwayhash.Zero.Sum(append(msg[:], salt...)))
 }
 
 const Zero = uint8(0)
